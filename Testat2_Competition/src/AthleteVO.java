@@ -1,7 +1,10 @@
-public class AthleteVO implements Comparable<AthleteVO> {
+
+public  class AthleteVO implements Comparable<AthleteVO>{
+
     private String name;
 
-    public AthleteVO(String name) {
+
+    public AthleteVO( String name) {
         setName(name);
     }
 
@@ -13,9 +16,14 @@ public class AthleteVO implements Comparable<AthleteVO> {
         return name;
     }
 
-    @Override
-    public int compareTo(AthleteVO other) {
-        return this.name.compareTo(other.name);
+    public int compareTo(AthleteVO obj) {
+        if(obj == null) throw new NullPointerException("Vergleich mit null ist nicht erlaubt.");
+
+        if(this.name == null && obj.name == null) return 0;
+        if(this.name == null) return -1;
+        if(obj.name == null) return -1;
+
+        return this.name.compareTo(obj.name);
     }
 
     @Override
@@ -35,8 +43,17 @@ public class AthleteVO implements Comparable<AthleteVO> {
         if (getClass() != obj.getClass())
             return false;
         AthleteVO other = (AthleteVO) obj;
-        return name != null && name.equals(other.name);
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
     }
+
+    // /
+    // / Setter und Getter
+    // /
 
     public String getName() {
         return name;
@@ -45,4 +62,5 @@ public class AthleteVO implements Comparable<AthleteVO> {
     public void setName(String name) {
         this.name = name;
     }
-}
+
+} 

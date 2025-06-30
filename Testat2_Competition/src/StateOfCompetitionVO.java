@@ -1,5 +1,3 @@
-enum StateOfCompetitionVO {
-    AVAILABLE,
-    FULL,
-    STARTED
+public enum StateOfCompetitionVO {
+    AVAILABLE, FULL, STARTED
 }

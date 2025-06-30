@@ -1,17 +1,24 @@
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-class CompetitionVO {
+public class CompetitionVO {
     private String name;
-    private StateOfCompetitionVO state;
     private int max;
+    private StateOfCompetitionVO state;
     private List<AthleteVO> athletes;
 
     public CompetitionVO(String name, StateOfCompetitionVO state, int max) {
-        this.name = name;
-        this.state = state;
-        this.max = max;
-        this.athletes = new LinkedList<>();
+        setName(name);
+        setState(state);
+        setMax(max);
+        this.athletes = new LinkedList<AthleteVO>();
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder(getName());
+        for(AthleteVO a : athletes) {
+            sb.append("\n").append(a);
+        }
+        return sb.toString();
     }
 
     public void addAthlete(AthleteVO obj) {
@@ -19,21 +26,34 @@ class CompetitionVO {
     }
 
     public boolean deleteAthlete(AthleteVO obj) {
-        return athletes.remove(obj);
-    }
+        if(obj == null) throw new NullPointerException("obj is null.");
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder(name);
-        for (AthleteVO a : athletes) {
-            sb.append("\n").append(a);
+        Iterator<AthleteVO> it = athletes.iterator();
+        while(it.hasNext()) {
+            if(it.next().equals(obj)) {
+                it.remove();
+                return true;
+            }
         }
-        return sb.toString();
+        return false;
     }
 
+    //Setter und Getter
     public String getName() { return name; }
     public int getMax() { return max; }
-    public StateOfCompetitionVO getState() { return state; }
-    public void setState(StateOfCompetitionVO state) { this.state = state; }
+    public void setState(StateOfCompetitionVO state) {
+        this.state = state;
+    }
+    public StateOfCompetitionVO getState() {
+        return state;
+    }
     public List<AthleteVO> getAthletes() { return athletes; }
     public void setAthletes(List<AthleteVO> athletes) { this.athletes = athletes; }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setMax(int max) {
+        this.max = max;
+    }
+
 }
